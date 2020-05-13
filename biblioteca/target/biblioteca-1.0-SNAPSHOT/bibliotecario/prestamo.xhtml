@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./menu.xhtml">
+
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="content">
+        <div style="padding-left: 5%">
+        <br/>
+        <br/>
+        <h3>Prestamo de libros</h3>  <div class="row">
+            
+            <div class="col-6">
+                <h:form>
+            <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
+                <p:outputLabel value="Horario"/><p:selectOneMenu  style="width:125px">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                </p:selectOneMenu>
+                <p:outputLabel value="Grado"/><p:selectOneMenu   style="width:125px">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                </p:selectOneMenu>
+                <p:outputLabel value="Nombre de alumno "/><p:inputText/> 
+                <p:outputLabel value="Apellido de alumno "/><p:inputText/>
+            </p:panelGrid><br/>
+            <p:commandButton value="Buscar" styleClass="btn btn-primary"/>
+        </h:form> 
+            </div>
+            
+            
+            <div class="col-4">
+                <b> <p:outputLabel style="vertical-align:middle;" value="Título: "/></b> <p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
+                <b> <p:outputLabel style="vertical-align:middle;" value="Tipo de libro: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
+                <b> <p:outputLabel style="vertical-align:middle;" value="Autor "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
+               <b><p:outputLabel style="vertical-align:middle;" value="Código de ejemplar: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
+               <b><p:outputLabel style="vertical-align:middle;" value="Edición: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/>
+
+            </div>
+            
+        </div>
+       
+        <br/>
+        <div class="row" style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
+
+            <div class="col-6" style="border-radius: 15px; background-color: #C5DECD; padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
+                <b><p:outputLabel style="vertical-align:middle;" value="Alumno: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
+                <b><p:outputLabel style="vertical-align:middle;" value="Grado: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
+                <b><p:outputLabel style="vertical-align:middle;" value="Turno: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/>
+
+            </div>
+            <div class="col-3" style=" border-radius: 15px; background-color: #BDA0BC" ><br/>
+                <center> <b><p:outputLabel style="vertical-align:middle;" value="Restringible "/></b><br/>
+                    <p:commandButton value="Prestar" styleClass="btn btn-primary" /></center>
+            </div>
+
+        </div>
+
+        <br />
+        </div>
+    </ui:define>
+
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./menu.xhtml">
+
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="content">
+        <div style="padding-left: 5%">
+        <br/>
+        <br/>
+        Buscar libro 
+        <h:form>
+            <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
+                <p:outputLabel value="Autor"/><p:inputText/>
+                <p:outputLabel value="Tipo de libro"/><p:inputText/>
+                <p:outputLabel value="libro "/><p:inputText/> 
+            </p:panelGrid><br/>
+            <p:commandButton value="Buscar" styleClass="btn btn-primary"/>
+        </h:form>
+        <br/>
+        <p:dataTable>
+            <p:column headerText="Titulo">
+                <h:outputText />
+            </p:column>
+
+            <p:column headerText="Autores">
+                <h:outputText  />
+            </p:column>
+
+            <p:column headerText="Tipos">
+                <h:outputText  />
+            </p:column>
+            <p:column headerText="Ver">
+                <a href="#" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-search"></span> Ver 
+        </a>
+            </p:column>
+        </p:dataTable>
+
+        <br />
+        </div>
+    </ui:define>
+
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>
