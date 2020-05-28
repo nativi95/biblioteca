@@ -27,9 +27,9 @@ public class AutorDao {
     
     
     public List<Autores> autores(int idLibro){
-        String sql="SELECT * autores as a"
-                +"JOIN autores_libros as al on a.id_autor=al.id_autor"
-                +"WHERE al.id_libro="+idLibro;
+        String sql="SELECT a.id_autor, a.nombre, a.apellido from autores as a"
+                +" JOIN autores_libros as al on a.id_autor=al.id_autor"
+                +" WHERE al.id_libro="+idLibro;
         List<Autores> lsAutor = new LinkedList<>();
         try {
             ps=conn.conectar().prepareStatement(sql);
@@ -42,8 +42,9 @@ public class AutorDao {
             lsAutor.add(a);
             }
         } catch (Exception e) {
-            System.out.println("el sql es "+ps);
+
         }
         return lsAutor;
     }
+
 }

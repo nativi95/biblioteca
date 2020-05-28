@@ -56,6 +56,11 @@ public class Ejemplares{
     public void setIdEstado(Estados idEstado) {
         this.idEstado = idEstado;
     }
+
+    @Override
+    public String toString() {
+        return "Ejemplares{" + "idEjemplar=" + idEjemplar + ", edicion=" + edicion + ", idLibro=" + idLibro + ", idEstado=" + idEstado + '}';
+    }
    
 
     

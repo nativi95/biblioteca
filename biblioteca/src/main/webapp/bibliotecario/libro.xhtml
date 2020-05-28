@@ -12,34 +12,42 @@
     </ui:define>
 
     <ui:define name="content">
-        <div style="padding-left: 5%">
-        <br/>
-        <div class="row"  style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
-            <div class="col-3" style="border-radius: 15px; background-color: #5DA9E9; padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
-                <img src="https://edit.org/images/cat/portadas-libros-big-2019101610.jpg" width="180px" height="220px" style="border-radius: 5px;" ></img> 
-            </div>
-            <div class="col-6" width="180px" height="220px" style=" border-radius: 15px; background-color: #98D2EB"><br/><br/>
-                <b> <p:outputLabel style="vertical-align:middle;" value="Título: "/></b> <p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-                <b> <p:outputLabel style="vertical-align:middle;" value="Tipo de libro: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-                <b> <p:outputLabel style="vertical-align:middle;" value="Autor "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/>
-            </div>
-        </div>
-        <br/>
-        <h3>Ejemplares disponibles</h3>
-        <div class="row" style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
+        <div>
+            <br/>
+            <div class="row"  style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
+                <div class="col-3" style="border-radius: 15px;  padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
+                    <img src="#{buscarManageBean.url}" width="180px" height="220px" style="border-radius: 5px; " ></img> 
+                </div>
+                <div class="col-6" width="180px" height="220px" style=" border-radius: 15px; background-color: #98D2EB"><br/><br/>
+                    <pre> <b> <p:outputLabel style="vertical-align:middle;" value="Título: "/></b> <p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.titulo}"/></pre>
+                    <pre> <b> <p:outputLabel style="vertical-align:middle;" value="Tipo de libro: "/></b> <p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.tipoL}"/></pre>
+                    <b> <p:outputLabel style="vertical-align:middle;" value="Autores: "/></b>
+                    <ui:repeat var="a" value="#{buscarManageBean.lsAutor}">
+                        <pre> <p:outputLabel style="vertical-align:middle;" value="#{a.nombre} "/>  <p:outputLabel style="vertical-align:middle;" value=" #{a.apellido}"/><br/></pre>
+                            </ui:repeat>
+                        </div>
+                    </div>
+                    <br/>
+                    <h3>Ejemplares disponibles</h3>
+                    <ui:repeat value="#{buscarManageBean.lsEjemplar}" var="e">
+                    <div class="row" style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
 
-            <div class="col-6" style="border-radius: 15px; background-color: #C5DECD; padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
-                <b><p:outputLabel style="vertical-align:middle;" value="Código de ejemplar: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-                <b><p:outputLabel style="vertical-align:middle;" value="Edición: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/>
+                        <div class="col-6" style="border-radius: 15px; background-color: #C5DECD; padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
+                            <b><p:outputLabel style="vertical-align:middle;" value="Código de ejemplar: "/></b><p:outputLabel style="vertical-align:middle;" value="#{e.idEjemplar}"/><br/><br/>
+                            <b><p:outputLabel style="vertical-align:middle;" value="Edición: "/></b><p:outputLabel style="vertical-align:middle;" value="#{e.edicion}"/><br/>
 
-            </div>
-            <div class="col-3" style=" border-radius: 15px; background-color: #BDA0BC" ><br/>
-                <center> <b><p:outputLabel style="vertical-align:middle;" value="Disponibilidad: "/></b><br/>
-                    <p:outputLabel style="vertical-align:middle;" value="Autor"/></center>
-            </div>
+                        </div>
+                        <div class="col-3" style=" border-radius: 15px; background-color: #BDA0BC" ><br/>
+                            <center> <b><p:outputLabel style="vertical-align:middle;" value="Disponibilidad: "/></b><br/>
+                                <p:outputLabel style="vertical-align:middle;" rendered="#{e.idEstado.idEstado!=1}" value="#{e.idEstado.estado}"/>
+                                <p:commandButton rendered="#{e.idEstado.idEstado==1}" action="#{buscarManageBean.verEjemplares(e.idEjemplar)}" value="Disponible" />
+                            </center>
+                        </div>
 
-        </div>
-        <br/>
+                    </div>
+                        <br/>
+                    </ui:repeat>
+                    <br/>
         </div>
     </ui:define>
 

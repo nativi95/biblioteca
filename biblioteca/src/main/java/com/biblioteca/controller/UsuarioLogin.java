@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
  * @author juana
  */
 public class UsuarioLogin {
-    private Usuarios usuario;
+    private Usuarios usuario = new Usuarios();
      Conexion conn= new Conexion();
     private UsuarioDao usuarioDao=new UsuarioDao(conn);
     private List<Usuarios> usuariols;
@@ -38,9 +38,27 @@ public class UsuarioLogin {
     public void setUsuariols(List<Usuarios> usuariols) {
         this.usuariols = usuariols;
     }
+
+    public Usuarios Login(String usuario, String contrasena){
     
-    @PostConstruct
-    public void init(){
-    usuario= new Usuarios();
+        try {
+            return usuarioDao.login(usuario, contrasena);
+        } catch (Exception e) {
+            System.out.println("++erroe n el controller++");
+            return null;
+        }
+        
     }
+    
+     public Usuarios usuarioById(int id){
+    
+        try {
+            return usuarioDao.usuarioById(id);
+        } catch (Exception e) {
+            System.out.println("++erroe n el controller++");
+            return null;
+        }
+        
+    }
+    
 }

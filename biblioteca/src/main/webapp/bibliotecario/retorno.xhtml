@@ -13,16 +13,41 @@
 
     <ui:define name="content">
         <div style="padding-left: 5%">
-        <br/>
-        <br/>
-        <h3>Retornar libros</h3>  
-        <h:form>
-                <p:outputLabel value="Código de ejemplar"/><p:inputText/>
-            
-            <p:commandButton value="Buscar" styleClass="btn btn-primary"/>
-        </h:form>
-        <br/>
-        <br />
+            <br/>
+            <br/>
+            <h3>Buscar prestamo</h3>  
+            <h:form>     
+                <p:inputText type="number" value="#{buscarManageBean.grado}"/>
+                <p:commandButton value="Buscar"  update=":pre" action="#{buscarManageBean.verPrestamo()}" styleClass="btn btn-primary">
+
+                </p:commandButton>
+            </h:form>
+            <br/>
+            <p:dataTable id="pre" var="p" value="#{buscarManageBean.lsPrestamo}">
+                <p:column headerText="Ejemplar">
+                    <h:outputLabel  value="#{p.idEjemplar.idLibro.titulo}"/><br/> <h:outputLabel  value="#{p.idEjemplar.edicion}"/>
+                </p:column>
+                <p:column headerText="Auto/es">
+                    <h:outputLabel  value="#{buscarManageBean.lsAutorToString(p.idEjemplar.idLibro.lsAutor)}"/>
+                </p:column>
+                <p:column headerText="Autorizado por">
+                    <h:outputLabel  value="#{p.idUsuario.usuario}"/>
+                </p:column>
+                <p:column headerText="Fechas">
+                    <b> <h:outputLabel  value="Inicio"/></b><br/><h:outputLabel  value="#{p.inicio}"><f:convertDateTime pattern="dd-mm-yyyy" /></h:outputLabel><b><h:outputLabel value="Devolución"/></b><br/><h:outputLabel  value="#{p.devolucion}"><f:convertDateTime pattern="dd-mm-yyyy" /></h:outputLabel>
+                </p:column>
+                <p:column headerText="Estudiante">
+                    <h:outputLabel  value="#{p.idEstudiante.nombres}"/><br/><h:outputLabel  value="#{p.idEstudiante.apellidos}"/><br/><b><h:outputLabel  value="Salón"/></b><br/><h:outputLabel  value="#{p.idEstudiante.idGrado.grado}"/>
+                </p:column>
+                <p:column headerText="Estado">
+
+                    <center> <p:commandButton value="Entregado" rendered="#{p.retorno==false}" styleClass="btn btn-info" /></center>
+                    <h:form>
+                        <center><p:commandButton action="#{buscarManageBean.retornar(p.idPrestamo)}" value="Entregar" rendered="#{p.retorno==true}" styleClass="btn btn-success" /></center>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+            <br/>
         </div>
     </ui:define>
 

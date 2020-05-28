@@ -13,38 +13,45 @@
 
     <ui:define name="content">
         <div style="padding-left: 5%">
-        <br/>
-        <br/>
-        Buscar libro 
-        <h:form>
-            <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
-                <p:outputLabel value="Autor"/><p:inputText/>
-                <p:outputLabel value="Tipo de libro"/><p:inputText/>
-                <p:outputLabel value="libro "/><p:inputText/> 
-            </p:panelGrid><br/>
-            <p:commandButton value="Buscar" styleClass="btn btn-primary"/>
-        </h:form>
-        <br/>
-        <p:dataTable>
-            <p:column headerText="Titulo">
-                <h:outputText />
-            </p:column>
+            <br/>
+            <br/>
+            Buscar libro 
+            <h:form >
+                <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
 
-            <p:column headerText="Autores">
-                <h:outputText  />
-            </p:column>
+                    <p:outputLabel value="Título"/><p:inputText value="#{buscarManageBean.titulo}"/>
+                    <p:outputLabel value="Género "/><p:selectOneMenu value = "#{buscarManageBean.tipo}"> 
+                        <f:selectItem itemValue = "0" itemLabel = "Seleccione" />
+                        <f:selectItems value="#{buscarManageBean.buscarLibroController.lsTipoLibros}" var="tl" itemValue="#{tl.idTipo}" itemLabel="#{tl.tipo}"/>
+                    </p:selectOneMenu>  
+                </p:panelGrid>
+                <p:panelGrid columns="5" styleClass="showcase-text-align-center">
+                    <p:outputLabel value="Autor:"/><p:outputLabel value="Nombre"/><p:inputText value="#{buscarManageBean.nombre}"/><p:outputLabel value="Apellido"/><p:inputText value="#{buscarManageBean.apellido}"/>
+                </p:panelGrid>
+                <br/><p:commandButton value="Buscar" action="#{buscarManageBean.buscarLibros()}" update=":tbLibro" styleClass="btn btn-primary"/>
+            </h:form>
+            <br/><br/>
+            <p:dataTable id="tbLibro" var="l" value="#{buscarManageBean.lsLibro}">
+                <p:column headerText="Título">
+                    <h:outputText value="#{l.titulo}"/>
+                </p:column>
 
-            <p:column headerText="Tipos">
-                <h:outputText  />
-            </p:column>
-            <p:column headerText="Ver">
-                <a href="#" class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-search"></span> Ver 
-        </a>
-            </p:column>
-        </p:dataTable>
+                <p:column headerText="Autores">
+                    <h:outputText value="#{buscarManageBean.lsAutorToString(l.lsAutor)}"/>
+                </p:column>
 
-        <br />
+                <p:column headerText="Género">
+                    <h:outputText value="#{l.idTipo.tipo}"  />
+                </p:column>
+                <p:column style="width:70px " headerText="Ver">
+                    <h:form>
+                        <p:commandButton icon="ui-icon-search" action="#{buscarManageBean.verLibro(l.idLibro)}" style="background-color: #C5DECD;" styleClass="btn btn-info" ></p:commandButton>
+                    </h:form>   
+
+                </p:column>
+            </p:dataTable>
+
+            <br />
         </div>
     </ui:define>
 

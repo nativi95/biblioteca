@@ -33,5 +33,10 @@ public class Turnos{
         this.turno = turno;
     }
 
+    @Override
+    public String toString() {
+        return "Turnos{" + "idTurno=" + idTurno + ", turno=" + turno + '}';
+    }
+
   
 }

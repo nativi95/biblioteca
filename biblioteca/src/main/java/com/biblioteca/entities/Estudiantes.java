@@ -72,6 +72,11 @@ public class Estudiantes{
     public void setIdGrado(Grados idGrado) {
         this.idGrado = idGrado;
     }
+
+    @Override
+    public String toString() {
+        return "Estudiantes{" + "idEstudiante=" + idEstudiante + ", nombres=" + nombres + ", apellidos=" + apellidos + ", idGrado=" + idGrado.toString() + '}';
+    }
    
     
     

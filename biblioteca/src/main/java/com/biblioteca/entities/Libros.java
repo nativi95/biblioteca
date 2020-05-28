@@ -5,6 +5,7 @@
  */
 package com.biblioteca.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,8 +20,30 @@ public class Libros{
   
     private String titulo;
     
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
    
     private TiposLibros idTipo;
+    
+    private List<Autores> lsAutor;
+
+    public List<Autores> getLsAutor() {
+        return lsAutor;
+    }
+
+    public void setLsAutor(List<Autores> lsAutor) {
+        this.lsAutor = lsAutor;
+    }
+    
+    
  
     public Libros() {
     }

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"></link>
+
+    </h:head>
+    <h:body>
+        <p:growl id="msj"/>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3>Biblioteca de Mi Escuelita</h3>
+                    <br/>
+                </div>
+            </div>
+            <div class="row" style="margin-left: 10%; margin-top: 2%">
+                <div class="col-10">
+                    <h:form>
+                        <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
+                            <p:outputLabel value="Usuario"/><p:inputText value="#{loginManageBean.usuario}"/>
+                            <p:outputLabel value="Contraseña"/><p:inputText type="password" value="#{loginManageBean.pass}"/>
+                        </p:panelGrid><br/>
+                        <p:commandButton value="Iniciar sesión" update=":msj" action="#{loginManageBean.login()}" styleClass="btn btn-primary"/>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+</html>
+

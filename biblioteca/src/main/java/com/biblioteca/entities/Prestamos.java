@@ -84,5 +84,11 @@ public class Prestamos{
         this.idUsuario = idUsuario;
     }
 
+    @Override
+    public String toString() {
+        return "Prestamos{" + "idPrestamo=" + idPrestamo + ", inicio=" + inicio + ", devolucion=" + devolucion + ", retorno=" + retorno + ", ++Estudiante++=" + idEstudiante.toString() + ", idEjemplar=" + idEjemplar.toString() + ", idUsuario=" + idUsuario.toString() + '}';
+    }
+
+    
     
 }

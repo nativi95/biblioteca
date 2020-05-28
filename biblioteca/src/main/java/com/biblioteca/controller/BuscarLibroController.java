@@ -6,14 +6,17 @@
 package com.biblioteca.controller;
 
 import com.biblioteca.Dao.AutorDao;
+import com.biblioteca.Dao.EjemplarDao;
+import com.biblioteca.Dao.GradoDao;
 import com.biblioteca.Dao.LibroDao;
 import com.biblioteca.Dao.TipoLibroDao;
 import com.biblioteca.conexion.Conexion;
 import com.biblioteca.entities.Autores;
+import com.biblioteca.entities.Ejemplares;
 import com.biblioteca.entities.Libros;
 import com.biblioteca.entities.TiposLibros;
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,17 +29,43 @@ public class BuscarLibroController implements Serializable {
     private LibroDao libroDao = new LibroDao(conn);
     private TipoLibroDao tipoLibroDao = new TipoLibroDao(conn);
     private AutorDao autorDao = new AutorDao(conn);
+    private EjemplarDao ejemplarDao=new EjemplarDao();
+   
 
     private Libros libro = new Libros();
-    private List<Libros> lsLibro = new LinkedList<>();
+    private List<Libros> lsLibro;
 
     private Autores autor = new Autores();
-    private List<Autores> lsAutor = new LinkedList<>();
+    private List<Autores> lsAutor;
 
     private TiposLibros tipoLibro = new TiposLibros();
-    private List<TiposLibros> lsTipoLibros = new LinkedList<>();
+    private List<TiposLibros> lsTipoLibros;
+    
+    private Ejemplares ejemplar= new Ejemplares();
+    
+    private List<Ejemplares> lsEjemplar= new ArrayList<>();
 
+    public Ejemplares getEjemplar() {
+        return ejemplar;
+    }
+
+    public void setEjemplar(Ejemplares ejemplar) {
+        this.ejemplar = ejemplar;
+    }
+
+    
+    
+    public List<Ejemplares> getLsEjemplar() {
+        return lsEjemplar;
+    }
+
+    public void setLsEjemplar(List<Ejemplares> lsEjemplar) {
+        this.lsEjemplar = lsEjemplar;
+    }
+
+    
     public Libros getLibro() {
+
         return libro;
     }
 
@@ -45,7 +74,9 @@ public class BuscarLibroController implements Serializable {
     }
 
     public List<Libros> getLsLibro() {
-        return lsLibro;
+
+        return this.lsLibro;
+
     }
 
     public void setLsLibro(List<Libros> lsLibro) {
@@ -69,6 +100,7 @@ public class BuscarLibroController implements Serializable {
     }
 
     public TiposLibros getTipoLibro() {
+         
         return tipoLibro;
     }
 
@@ -85,21 +117,56 @@ public class BuscarLibroController implements Serializable {
         this.lsTipoLibros = lsTipoLibros;
     }
 
-    public void buscarLibro() {
+    public void buscarLibro(String titulo, String nombre, String apellido, int tipo) {
         try {
-            List<Libros> lista=this.libroDao.buscarTitulo(this.libro.getTitulo(), this.tipoLibro.getIdTipo(), this.autor.getNombre(), this.autor.getApellido());
-            if(!lista.isEmpty())
-       {
-           System.out.println("+++++++++++++++Listado de busqueda no es vacio+++++++++++++++++");
-            System.out.println("+++++++++++++++primer campo es+++++++++++++++++"+lista.get(0).getTitulo());
-       }
-            
-            this.lsLibro = this.libroDao.buscarTitulo(this.libro.getTitulo(), this.tipoLibro.getIdTipo(), this.autor.getNombre(), this.autor.getApellido());
+           
+
+             lsLibro= this.libroDao.buscarTitulo(titulo, tipo, nombre, apellido);
+
         } catch (Exception e) {
-            System.out.println("++error");
+         
+
             throw e;
         }
 
+    }
+    
+    public void verLibro(int id){
+    
+        try {
+            this.libro=libroDao.verLibro(id);
+        } catch (Exception e) {
+            throw e;
+        }
+            
+    }
+    
+    public void ListaEjemplares(int id){
+    
+     try {
+            lsEjemplar= this.ejemplarDao.listarEjemplar(id);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+     public List<Libros> top(){
+    
+        try {
+            return libroDao.top();
+        } catch (Exception e) {
+            return null;
+        }
+            
+    }
+     
+     public void verEjemplares(int id){
+    
+     try {
+           this.ejemplar= this.ejemplarDao.verEjemplar(id);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
 }

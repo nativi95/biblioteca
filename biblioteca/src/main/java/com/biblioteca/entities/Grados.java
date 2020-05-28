@@ -36,6 +36,11 @@ public class Grados{
     public void setIdTurno(Turnos idTurno) {
         this.idTurno = idTurno;
     }
+
+    @Override
+    public String toString() {
+        return "Grados{" + "idGrado=" + idGrado + ", grado=" + grado + ", idTurno=" + idTurno.toString() + '}';
+    }
    
     
 }

@@ -51,6 +51,11 @@ public class Usuarios{
         this.idRol = idRol;
     }
 
+    @Override
+    public String toString() {
+        return "Usuarios{" + "idUsuario=" + idUsuario + ", usuario=" + usuario + ", pass=" + pass + ", idRol=" + idRol + '}';
+    }
+
     
     
 }

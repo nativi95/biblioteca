@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./menu.xhtml">
+
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="content">
+        <div style="padding-left: 5%">
+            <br/>
+            <br/>
+            <h3>Alumnos de uso restringidos</h3>  
+            <h:form>
+                <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
+                    <p:outputLabel value="Horario"/><p:outputLabel value="#{buscarManageBean.turno}" />
+                    <p:outputLabel value="Salón"/><p:outputLabel value="#{buscarManageBean.grado}" />
+                    <p:outputLabel value="Nombre de alumno "/><p:inputText value="#{buscarManageBean.nombre}"/> 
+                    <p:outputLabel value="Apellido de alumno "/><p:inputText value="#{buscarManageBean.apellido}"/>
+                    <p:outputLabel value="Estado" /><p:inputText value="Posee un libro activo"  style="background-color: #ffb4b0; color: white" rendered="#{buscarManageBean.solvencia==false}" ></p:inputText>
+                    <p:inputText value="Se encuentra solvente" style="background-color: #bfefbb; color: black" rendered="#{buscarManageBean.solvencia==true}" ></p:inputText>
+                </p:panelGrid><br/>
+            </h:form>
+            <br/>
+            <h:panelGroup  >
+                <ui:repeat var="a" value="#{buscarManageBean.lsPrestamo}">
+                    <h:panelGroup rendered="#{a.idEjemplar.edicion!=null}" class="row" style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
+
+                        <div class="col-8" id="alumno" style="border-radius: 15px; background-color: #C5DECD; padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Título: "/></b><br/>
+                                    <p:outputLabel style="vertical-align:middle;" value="#{a.idEjemplar.idLibro.titulo} &nbsp;"/> <p:outputLabel style="vertical-align:middle;" value="#{a.idEjemplar.edicion}"/><br/>
+                                </div>
+                                <div class="col-2">
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Autorizado por: "/></b><br/><p:outputLabel style="vertical-align:middle;" value="#{a.idUsuario.usuario}"/><br/>
+                                </div>
+                                <div class="col-3">
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Prestado: "/></b><br/><h:outputText style="vertical-align:middle;" value="#{a.inicio}"><f:convertDateTime pattern="dd-mm-yyyy" /></h:outputText><br/>
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Entrega: "/></b><br/><p:outputLabel style="vertical-align:middle;" value="#{a.devolucion}"><f:convertDateTime pattern="dd-mm-yyyy" /></p:outputLabel><br/>
+                                </div>
+                            </div>
+
+                            <br/>
+
+
+
+                        </div>
+                        <div class="col-3" style=" border-radius: 15px; background-color: #BDA0BC" ><br/>
+                            <center> <b><p:outputLabel style="vertical-align:middle;" value="Restringible "/></b><br/>
+                                <p:outputLabel styleClass="btn btn-info" rendered="#{buscarManageBean.restrccion(a.devolucion, a.retorno)==2}" style="vertical-align:middle;" value="Entregado" />
+                                <p:outputLabel styleClass="btn btn-danger" rendered="#{buscarManageBean.restrccion(a.devolucion, a.retorno)==1}" style="vertical-align:middle;" value="No Entregado" />
+                                <p:outputLabel styleClass="btn btn-success" rendered="#{buscarManageBean.restrccion(a.devolucion, a.retorno)==3}" style="vertical-align:middle;" value="Prestamo activo" />
+                            </center>
+                            <br/>
+                        </div>
+
+
+                    </h:panelGroup>
+                    <br />
+                    <br />
+
+                </ui:repeat>
+            </h:panelGroup>
+        </div>
+    </ui:define>
+
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>

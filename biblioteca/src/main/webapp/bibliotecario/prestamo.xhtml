@@ -13,55 +13,119 @@
 
     <ui:define name="content">
         <div style="padding-left: 5%">
-        <br/>
-        <br/>
-        <h3>Prestamo de libros</h3>  <div class="row">
-            
-            <div class="col-6">
-                <h:form>
-            <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
-                <p:outputLabel value="Horario"/><p:selectOneMenu  style="width:125px">
-                    <f:selectItem itemLabel="Select One" itemValue="" />
-                </p:selectOneMenu>
-                <p:outputLabel value="Grado"/><p:selectOneMenu   style="width:125px">
-                    <f:selectItem itemLabel="Select One" itemValue="" />
-                </p:selectOneMenu>
-                <p:outputLabel value="Nombre de alumno "/><p:inputText/> 
-                <p:outputLabel value="Apellido de alumno "/><p:inputText/>
-            </p:panelGrid><br/>
-            <p:commandButton value="Buscar" styleClass="btn btn-primary"/>
-        </h:form> 
-            </div>
-            
-            
-            <div class="col-4">
-                <b> <p:outputLabel style="vertical-align:middle;" value="Título: "/></b> <p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-                <b> <p:outputLabel style="vertical-align:middle;" value="Tipo de libro: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-                <b> <p:outputLabel style="vertical-align:middle;" value="Autor "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-               <b><p:outputLabel style="vertical-align:middle;" value="Código de ejemplar: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-               <b><p:outputLabel style="vertical-align:middle;" value="Edición: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/>
+            <br/>
+            <br/>
+            <h3>Prestamo de libros</h3> 
+
+
+
+
+            <div class="row">
+
+                <div class="col-6">
+
+                    <h:form>
+                        <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
+                            <p:outputLabel value="Horario"/><p:selectOneMenu value="#{buscarManageBean.idTurno}" style="width:165px">
+                                <f:selectItem itemLabel="Seleccione uno" itemValue="0" />
+                                <f:selectItems var="t" value="#{buscarManageBean.lsTurno}" itemLabel="#{t.turno}" itemValue="#{t.idTurno}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Salón"/><p:selectOneMenu value="#{buscarManageBean.idGrado}" style="width:165px">
+                                <f:selectItem itemLabel="Seleccione uno" itemValue="0" />
+                                <f:selectItems var="g" value="#{buscarManageBean.lsGrado}" itemLabel="#{g.grado}" itemValue="#{g.idGrado}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Nombre de alumno "/><p:inputText value="#{buscarManageBean.nombre}"/> 
+                            <p:outputLabel value="Apellido de alumno "/><p:inputText value="#{buscarManageBean.apellido}"/>
+                        </p:panelGrid><br/>
+                        <p:commandButton value="Buscar"  update=":con" action="#{buscarManageBean.buscarEstudiante()}" styleClass="btn btn-primary"/>
+                    </h:form>
+                </div>
+
+
+                <div class="col-4">
+                    <b> <p:outputLabel style="vertical-align:middle;" value="Título: "/></b> <p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.titulo}"/><br/>
+                    <b> <p:outputLabel style="vertical-align:middle;" value="Género: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.tipoL}"/><br/>
+                    <b> <p:outputLabel style="vertical-align:middle;" value="Autor/es: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.lsAutorToString(buscarManageBean.lsAutor)}"/><br/>
+                    <b><p:outputLabel style="vertical-align:middle;" value="Código de ejemplar: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.idEjemplar}"/><br/>
+                    <b><p:outputLabel style="vertical-align:middle;" value="Edición: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.edicion}"/><br/>
+                </div>
 
             </div>
-            
-        </div>
-       
-        <br/>
-        <div class="row" style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
 
-            <div class="col-6" style="border-radius: 15px; background-color: #C5DECD; padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
-                <b><p:outputLabel style="vertical-align:middle;" value="Alumno: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-                <b><p:outputLabel style="vertical-align:middle;" value="Grado: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-                <b><p:outputLabel style="vertical-align:middle;" value="Turno: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/>
+            <br/>
+            <h:panelGroup id="con" >
 
-            </div>
-            <div class="col-3" style=" border-radius: 15px; background-color: #BDA0BC" ><br/>
-                <center> <b><p:outputLabel style="vertical-align:middle;" value="Restringible "/></b><br/>
-                    <p:commandButton value="Prestar" styleClass="btn btn-primary" /></center>
-            </div>
+                <ui:repeat var="a" value="#{buscarManageBean.lsEstudiant}">
+                    <div class="row" style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
 
-        </div>
+                        <div class="col-8" id="alumno" style="border-radius: 15px; background-color: #C5DECD; padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
 
-        <br />
+                            <div class="row">
+                                <div class="col-4">
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Alumno: "/></b><br/>
+                                    <p:outputLabel style="vertical-align:middle;" value="#{a.nombres} &nbsp;"/> <p:outputLabel style="vertical-align:middle;" value="#{a.apellidos}"/><br/>
+                                </div>
+                                <div class="col-2">
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Salón: "/></b><br/><p:outputLabel style="vertical-align:middle;" value="#{a.idGrado.grado}"/><br/>
+                                </div>
+                                <div class="col-2">
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Turno: "/></b><br/><p:outputLabel style="vertical-align:middle;" value="#{a.idGrado.idTurno.turno}"/>
+                                </div>
+                            </div>
+
+                            <br/>
+
+
+
+                        </div>
+                        <div class="col-3" style=" border-radius: 15px; background-color: #BDA0BC" ><br/>
+                            <center> <b><p:outputLabel style="vertical-align:middle;" value="Restringible "/></b><br/>
+                                <p:commandButton ajax="true" styleClass="btn btn-info" onclick="PF('confirm#{a.idEstudiante}').show();"  rendered="#{buscarManageBean.buscanPrestamo(a.idEstudiante)==true}" style="vertical-align:middle;" value="Solvente" >
+
+                                </p:commandButton>
+                                <p:commandButton styleClass="btn btn-danger"  rendered="#{buscarManageBean.buscanPrestamo(a.idEstudiante)==false}" style="vertical-align:middle;" value="No esta solvente" />
+                            </center>
+                            <br/>
+                        </div>
+                        <p:dialog header="Confirmar prestamo" onShow="oi.update()" width="580px" widgetVar="confirm#{a.idEstudiante}"  showEffect="fade" hideEffect="fade">
+                            <h:form>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <b> <p:outputLabel style="vertical-align:middle;" value="Título: "/></b> <p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.titulo}"/><br/>
+                                        <b> <p:outputLabel style="vertical-align:middle;" value="Género: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.tipoL}"/><br/>
+                                        <b> <p:outputLabel style="vertical-align:middle;" value="Autor/es: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.lsAutorToString(buscarManageBean.lsAutor)}"/><br/>
+                                        <b><p:outputLabel style="vertical-align:middle;" value="Código de ejemplar: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.idEjemplar}"/><br/>
+                                        <b><p:outputLabel style="vertical-align:middle;" value="Edición: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.edicion}"/><br/>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <b><p:outputLabel style="vertical-align:middle;" value="Estudiante: "/></b> <p:outputLabel value="#{a.nombres} &nbsp;" style="vertical-align:middle;" /> <p:outputLabel value="#{a.apellidos}" style="vertical-align:middle;" /><br/>
+                                        <b><p:outputLabel style="vertical-align:middle;" value="Salón: "/></b> <p:outputLabel value="#{a.idGrado.grado}" style="vertical-align:middle;" /><br/>
+                                        <b><p:outputLabel style="vertical-align:middle;" value="Horario: "/></b> <p:outputLabel value="#{a.idGrado.idTurno.turno}" style="vertical-align:middle;" /><br/>
+                                        <b><p:outputLabel style="vertical-align:middle;" value="Tipo de prestamo: "/></b><p:selectOneMenu value="#{buscarManageBean.prestamoT}" style="width:165px">
+                                            <f:selectItem itemLabel="Prestamo en sala" itemValue="0" />
+                                            <f:selectItem itemLabel="Fuera de sala" itemValue="1" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-8">
+                                        <p:commandButton value="Confirmar" action="#{buscarManageBean.prestar(a.idEstudiante)}" styleClass="btn btn-info" />
+                                        <p:commandButton value="Cancelar" action="#{buscarManageBean.cancelar()}" styleClass="btn btn-danger" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </p:dialog>  
+
+                    </div>
+                    <br />
+                    <br />
+                </ui:repeat>
+            </h:panelGroup>
+
+            <br />
+
         </div>
     </ui:define>
 

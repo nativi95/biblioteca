@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="./menu.xhtml">
+
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="content">
+        <div style="padding-left: 5%">
+            <h:form>
+                <div class="row">
+                    <center><h3><p:outputLabel value="Préstamo realizado"/></h3></center>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <b> <p:outputLabel style="vertical-align:middle;" value="Título: "/></b> <p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.titulo}"/><br/>
+                        <b> <p:outputLabel style="vertical-align:middle;" value="Género: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.tipoL}"/><br/>
+                        <b> <p:outputLabel style="vertical-align:middle;" value="Autor/es: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.lsAutorToString(buscarManageBean.lsAutor)}"/><br/>
+                        <b><p:outputLabel style="vertical-align:middle;" value="Código de ejemplar: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.idEjemplar}"/><br/>
+                        <b><p:outputLabel style="vertical-align:middle;" value="Edición: "/></b><p:outputLabel style="vertical-align:middle;" value="#{buscarManageBean.edicion}"/><br/>
+                    </div>
+
+                    <div class="col-4">
+                        <b><p:outputLabel style="vertical-align:middle;" value="Estudiante: "/></b> <p:outputLabel value="#{buscarManageBean.nombre} &nbsp;" style="vertical-align:middle;" /> <p:outputLabel value="#{buscarManageBean.apellido}" style="vertical-align:middle;" /><br/>
+                        <b><p:outputLabel style="vertical-align:middle;" value="Salón: "/></b> <p:outputLabel value="#{buscarManageBean.grado}" style="vertical-align:middle;" /><br/>
+                        <b><p:outputLabel style="vertical-align:middle;" value="Horario: "/></b> <p:outputLabel value="#{buscarManageBean.turno}" style="vertical-align:middle;" /><br/>
+
+
+                    </div>
+
+                    <div class="col-4">
+                        <b><p:outputLabel style="vertical-align:middle;" value="Id de prestamo: "/></b> <p:outputLabel value="#{buscarManageBean.tipo}" style="vertical-align:middle;" /><br/>
+                        <b><p:outputLabel style="vertical-align:middle;" value="Autorizado por: "/></b> <p:outputLabel value="#{buscarManageBean.usuario}" style="vertical-align:middle;" /><br/>
+                        <b><p:outputLabel style="vertical-align:middle;" value="Fecha de prestamo: "/></b> <p:outputLabel value="#{buscarManageBean.inicio}" style="vertical-align:middle;" /><br/>
+                        <b><p:outputLabel style="vertical-align:middle;" value="Fecha de devolucion: "/></b> <p:outputLabel value="#{buscarManageBean.devolucion}" style="vertical-align:middle;" /><br/>
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-8">
+
+
+                        <p:commandButton value="Cerrar" action="#{buscarManageBean.cancelar()}" styleClass="btn btn-danger btn large" />
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>

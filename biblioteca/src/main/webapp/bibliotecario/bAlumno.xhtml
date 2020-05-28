@@ -13,39 +13,64 @@
 
     <ui:define name="content">
         <div style="padding-left: 5%">
-        <br/>
-        <br/>
-        <h3>Alumnos de uso restringidos</h3>  
-        <h:form>
-            <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
-                <p:outputLabel value="Horario"/><p:selectOneMenu  style="width:125px">
-                    <f:selectItem itemLabel="Select One" itemValue="" />
-                </p:selectOneMenu>
-                <p:outputLabel value="Grado"/><p:selectOneMenu   style="width:125px">
-                    <f:selectItem itemLabel="Select One" itemValue="" />
-                </p:selectOneMenu>
-                <p:outputLabel value="Nombre de alumno "/><p:inputText/> 
-                <p:outputLabel value="Apellido de alumno "/><p:inputText/>
-            </p:panelGrid><br/>
-            <p:commandButton value="Buscar" styleClass="btn btn-primary"/>
-        </h:form>
-        <br/>
-        <div class="row" style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
+            <br/>
+            <br/>
+            <h3>Alumnos de uso restringidos</h3>  
+            <h:form>
+                <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
+                    <p:outputLabel value="Horario"/><p:selectOneMenu value="#{buscarManageBean.idTurno}" style="width:165px">
+                        <f:selectItem itemLabel="Seleccione uno" itemValue="0" />
+                        <f:selectItems var="t" value="#{buscarManageBean.lsTurno}" itemLabel="#{t.turno}" itemValue="#{t.idTurno}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Salón"/><p:selectOneMenu value="#{buscarManageBean.idGrado}" style="width:165px">
+                        <f:selectItem itemLabel="Seleccione uno" itemValue="0" />
+                        <f:selectItems var="g" value="#{buscarManageBean.lsGrado}" itemLabel="#{g.grado}" itemValue="#{g.idGrado}" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Nombre de alumno "/><p:inputText value="#{buscarManageBean.nombre}"/> 
+                    <p:outputLabel value="Apellido de alumno "/><p:inputText value="#{buscarManageBean.apellido}"/>
+                </p:panelGrid><br/>
+                <p:commandButton value="Buscar"  update=":con" action="#{buscarManageBean.buscarEstudiante()}" styleClass="btn btn-primary"/>
+            </h:form>
+            <br/>
+            <h:panelGroup id="con" >
+                <ui:repeat var="a" value="#{buscarManageBean.lsEstudiant}">
+                    <div class="row" style="border-radius: 15px; padding-left: 5%; padding-right: 5%;">
 
-            <div class="col-6" style="border-radius: 15px; background-color: #C5DECD; padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
-                <b><p:outputLabel style="vertical-align:middle;" value="Alumno: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-                <b><p:outputLabel style="vertical-align:middle;" value="Grado: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/><br/>
-                <b><p:outputLabel style="vertical-align:middle;" value="Turno: "/></b><p:outputLabel style="vertical-align:middle;" value="Autor"/><br/>
+                        <div class="col-8" id="alumno" style="border-radius: 15px; background-color: #C5DECD; padding-left: 4%; padding-right: 5%; padding-top: 5px; padding-bottom: 5px;">
 
-            </div>
-            <div class="col-3" style=" border-radius: 15px; background-color: #BDA0BC" ><br/>
-                <center> <b><p:outputLabel style="vertical-align:middle;" value="Restringible "/></b><br/>
-                    <p:outputLabel style="vertical-align:middle;" value="Autor"/></center>
-            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Alumno: "/></b><br/>
+                                    <p:outputLabel style="vertical-align:middle;" value="#{a.nombres} &nbsp;"/> <p:outputLabel style="vertical-align:middle;" value="#{a.apellidos}"/><br/>
+                                </div>
+                                <div class="col-2">
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Salón: "/></b><br/><p:outputLabel style="vertical-align:middle;" value="#{a.idGrado.grado}"/><br/>
+                                </div>
+                                <div class="col-2">
+                                    <b><p:outputLabel style="vertical-align:middle;" value="Turno: "/></b><br/><p:outputLabel style="vertical-align:middle;" value="#{a.idGrado.idTurno.turno}"/>
+                                </div>
+                            </div>
 
-        </div>
+                            <br/>
 
-        <br />
+
+
+                        </div>
+                        <div class="col-3" style=" border-radius: 15px; background-color: #BDA0BC" ><br/>
+                            <center> <b><p:outputLabel style="vertical-align:middle;" value="Restringible "/></b><br/>
+                                <p:commandButton action="#{buscarManageBean.VerEstudiante(a.idEstudiante)}" styleClass="btn btn-info" rendered="#{buscarManageBean.buscanPrestamo(a.idEstudiante)==true}" style="vertical-align:middle;" value="ver" />
+                                <p:commandButton action="#{buscarManageBean.VerEstudiante(a.idEstudiante)}" styleClass="btn btn-danger" rendered="#{buscarManageBean.buscanPrestamo(a.idEstudiante)==false}" style="vertical-align:middle;" value="ver" />
+                            </center>
+                            <br/>
+                        </div>
+
+
+                    </div>
+                    <br />
+                    <br />
+
+                </ui:repeat>
+            </h:panelGroup>
         </div>
     </ui:define>
 

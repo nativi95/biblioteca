@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
         <h:outputStylesheet name="css/jsfcrud.css"/>
@@ -19,35 +20,36 @@
                     Buscar libro 
                     <h:form >
                         <p:panelGrid columns="2"  styleClass="showcase-text-align-center">
-                    
-                            <p:outputLabel value="Título"/><p:inputText value="#{buscarManageBean.buscarLibroController.libro.titulo}"/>
-                            <p:outputLabel value="Género "/><h:selectOneMenu value = "#{buscarManageBean.buscarLibroController.tipoLibro.idTipo}"> 
+
+                            <p:outputLabel value="Título"/><p:inputText value="#{buscarManageBean.titulo}"/>
+                            <p:outputLabel value="Género "/><p:selectOneMenu value = "#{buscarManageBean.tipo}"> 
                                 <f:selectItem itemValue = "0" itemLabel = "Seleccione" />
                                 <f:selectItems value="#{buscarManageBean.buscarLibroController.lsTipoLibros}" var="tl" itemValue="#{tl.idTipo}" itemLabel="#{tl.tipo}"/>
-                            </h:selectOneMenu>  
+                            </p:selectOneMenu>  
                         </p:panelGrid>
                         <p:panelGrid columns="5" styleClass="showcase-text-align-center">
-                            <p:outputLabel value="Autor:"/><p:outputLabel value="Nombre"/><p:inputText value="#{buscarManageBean.buscarLibroController.autor.nombre}"/><p:outputLabel value="Apellido"/><p:inputText value="#{buscarManageBean.buscarLibroController.autor.apellido}"/>
+                            <p:outputLabel value="Autor:"/><p:outputLabel value="Nombre"/><p:inputText value="#{buscarManageBean.nombre}"/><p:outputLabel value="Apellido"/><p:inputText value="#{buscarManageBean.apellido}"/>
                         </p:panelGrid>
-                        <p:commandButton value="Buscar" actionListener="#{buscarManageBean.buscarLibroController.buscarLibro()}" styleClass="btn btn-primary"/>
+                        <p:commandButton value="Buscar" action="#{buscarManageBean.buscarLibros()}" update=":tbLibros" styleClass="btn btn-primary"/>
                     </h:form>
                     <br/>
-                    <p:dataTable var="l" value="#{buscarManageBean.buscarLibroController.lsLibro}">
+                    <p:dataTable id="tbLibros" var="l" value="#{buscarManageBean.lsLibro}">
                         <p:column headerText="Título">
                             <h:outputText value="#{l.titulo}"/>
                         </p:column>
 
                         <p:column headerText="Autores">
-                            <h:outputText/>
+                            <h:outputText value="#{buscarManageBean.lsAutorToString(l.lsAutor)}"/>
                         </p:column>
 
                         <p:column headerText="Género">
                             <h:outputText value="#{l.idTipo.tipo}"  />
                         </p:column>
-                        <p:column headerText="Ver">
-                            <a href="#" class="btn btn-info btn-lg">
-                                <span class="glyphicon glyphicon-search"></span> Ver 
-                            </a>
+                        <p:column style="width:70px " headerText="Ver">
+                            <h:form>
+                                <p:commandButton icon="ui-icon-search" action="#{buscarManageBean.verLibro(l.idLibro)}" style="background-color: #C5DECD;" styleClass="btn btn-info" ></p:commandButton>
+                            </h:form>   
+
                         </p:column>
                     </p:dataTable>
 

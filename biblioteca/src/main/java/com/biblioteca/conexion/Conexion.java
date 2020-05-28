@@ -15,7 +15,7 @@ import java.sql.DriverManager;
 public class Conexion {
     
     static String user="root";
-    static String password="bathory80";
+    static String password="root";
     static String db="db_biblioteca";
     static String url="jdbc:mysql://localhost:3306/db_biblioteca?useSSL=false";
     
