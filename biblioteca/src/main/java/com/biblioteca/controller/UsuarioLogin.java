@@ -17,8 +17,8 @@ import javax.annotation.PostConstruct;
  */
 public class UsuarioLogin {
     private Usuarios usuario = new Usuarios();
-     Conexion conn= new Conexion();
-    private UsuarioDao usuarioDao=new UsuarioDao(conn);
+
+    private UsuarioDao usuarioDao=new UsuarioDao();
     private List<Usuarios> usuariols;
    
 

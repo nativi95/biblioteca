@@ -20,31 +20,32 @@ import java.util.List;
  */
 public class UsuarioDao {
 
-    Conexion conn = new Conexion();
+    Conexion conn;
     PreparedStatement ps;
     ResultSet rs;
     Encriptacion en = new Encriptacion();
-
-    public UsuarioDao(Conexion conn) {
-    }
 
     public List<Usuarios> listar() {
         String sql = "SELECT * FROM usuarios as u join roles as r on r.id_rol=u.id_rol";
         List<Usuarios> lista = new LinkedList<>();
         try {
+            conn = new Conexion();
             ps = conn.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
+            Usuarios u;
+            Roles r;
             while (rs.next()) {
-                Usuarios u = new Usuarios();
+                u = new Usuarios();
                 u.setIdUsuario(rs.getInt(1));
                 u.setUsuario(rs.getString(2));
                 u.setPass(rs.getString(3));
-                Roles r = new Roles();
+                r = new Roles();
                 r.setIdRol(rs.getInt(5));
                 r.setRol(rs.getString(6));
                 u.setIdRol(r);
                 lista.add(u);
             }
+            conn.desconectar();
             return lista;
         } catch (Exception e) {
             System.out.println("el sql es " + ps);
@@ -62,19 +63,23 @@ public class UsuarioDao {
                 + " and u.pass='" + en.encriptar(contrasena) + "'";
         Usuarios u = new Usuarios();
         try {
+            conn = new Conexion();
             ps = conn.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
+            Roles r;
+
             while (rs.next()) {
                 u = new Usuarios();
                 u.setIdUsuario(rs.getInt(1));
                 u.setUsuario(rs.getString(2));
                 u.setPass(rs.getString(3));
-                Roles r = new Roles();
+                r = new Roles();
                 r.setIdRol(rs.getInt(5));
                 r.setRol(rs.getString(6));
                 u.setIdRol(r);
                 lista.add(u);
             }
+            conn.desconectar();
 
             if (!lista.isEmpty()) {
                 return u;
@@ -96,18 +101,21 @@ public class UsuarioDao {
                 + "WHERE u.id_usuario=" + id;
         Usuarios u = new Usuarios();
         try {
+            conn = new Conexion();
             ps = conn.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
+            Roles r;
             while (rs.next()) {
                 u = new Usuarios();
                 u.setIdUsuario(rs.getInt(1));
                 u.setUsuario(rs.getString(2));
                 u.setPass(rs.getString(3));
-                Roles r = new Roles();
+                r = new Roles();
                 r.setIdRol(rs.getInt(5));
                 r.setRol(rs.getString(6));
                 u.setIdRol(r);
             }
+            conn.desconectar();
             return u;
         } catch (Exception e) {
             System.out.println("la sql es " + ps);

@@ -25,10 +25,10 @@ import java.util.List;
  */
 public class BuscarLibroController implements Serializable {
 
-    Conexion conn = new Conexion();
-    private LibroDao libroDao = new LibroDao(conn);
-    private TipoLibroDao tipoLibroDao = new TipoLibroDao(conn);
-    private AutorDao autorDao = new AutorDao(conn);
+    
+    private LibroDao libroDao = new LibroDao();
+    private TipoLibroDao tipoLibroDao = new TipoLibroDao();
+    private AutorDao autorDao = new AutorDao();
     private EjemplarDao ejemplarDao=new EjemplarDao();
    
 

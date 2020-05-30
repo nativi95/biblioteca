@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class GradoDao {
     
-    Conexion conn= new Conexion();
+    Conexion conn;
     PreparedStatement ps;
     ResultSet rs;
     
@@ -26,6 +26,7 @@ public class GradoDao {
     List<Grados> lsGrados= new ArrayList<>();
     String sql="SELECT * FROM grados";
         try {
+            conn= new Conexion();
             ps=conn.conectar().prepareStatement(sql);
             rs=ps.executeQuery();
             while(rs.next()){
@@ -34,6 +35,7 @@ public class GradoDao {
             g.setGrado(rs.getString(2));
             lsGrados.add(g);
             }
+            conn.desconectar();
             return lsGrados;
         } catch (Exception e) {
             

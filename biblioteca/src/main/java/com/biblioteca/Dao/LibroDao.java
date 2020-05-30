@@ -20,15 +20,12 @@ import java.util.List;
  */
 public class LibroDao implements Serializable {
 
-    Conexion conn = new Conexion();
+    Conexion conn;
     PreparedStatement ps;
     ResultSet rs;
 
-    public LibroDao(Conexion conn) {
-    }
-
     public List<Libros> buscarTitulo(String titulo, int tipo, String nombre, String apellido) {
-        AutorDao autorD = new AutorDao(conn);
+        AutorDao autorD = new AutorDao();
         String sql = "SELECT DISTINCT l.id_libro, l.titulo, l.url, t.tipo "
                 + "FROM libros as l "
                 + "JOIN ejemplares as e on l.id_libro = e.id_libro "
@@ -52,11 +49,14 @@ public class LibroDao implements Serializable {
 
         List<Libros> lsLibro = new LinkedList<>();
         try {
+            conn = new Conexion();
             ps = conn.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
+            TiposLibros tl;
+            Libros l;
             while (rs.next()) {
-                Libros l = new Libros();
-                TiposLibros tl = new TiposLibros();
+                l = new Libros();
+                tl = new TiposLibros();
                 l.setIdLibro(rs.getInt(1));
                 l.setTitulo(rs.getString(2));
                 tl.setTipo(rs.getString(4));
@@ -64,7 +64,7 @@ public class LibroDao implements Serializable {
                 l.setLsAutor(autorD.autores(l.getIdLibro()));
                 lsLibro.add(l);
             }
-            System.out.println("la query "+ps);
+            conn.desconectar();
         } catch (Exception e) {
             System.out.println("titulo " + titulo + " nombre" + nombre + " apellido" + apellido);
 
@@ -73,36 +73,38 @@ public class LibroDao implements Serializable {
     }
 
     public Libros verLibro(int id) {
-AutorDao autorD = new AutorDao(conn);
+        AutorDao autorD = new AutorDao();
         String sql = "SELECT DISTINCT l.id_libro, l.titulo, l.url, t.tipo "
                 + "FROM libros as l "
                 + "JOIN tipos_libros as t on l.id_tipo=t.id_tipo "
                 + " WHERE l.id_libro= " + id;
         Libros l = new Libros();
-        
+
         try {
-           
+            conn = new Conexion();
             ps = conn.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
+            TiposLibros tl;
             while (rs.next()) {
-               l = new Libros();
-               TiposLibros tl = new TiposLibros();
-               l.setIdLibro(rs.getInt(1));
-               l.setTitulo(rs.getString(2));
-               l.setUrl(rs.getString(3));
-               tl.setTipo(rs.getString(4));
-               l.setIdTipo(tl);
-               l.setLsAutor(autorD.autores(id));
+                l = new Libros();
+                tl = new TiposLibros();
+                l.setIdLibro(rs.getInt(1));
+                l.setTitulo(rs.getString(2));
+                l.setUrl(rs.getString(3));
+                tl.setTipo(rs.getString(4));
+                l.setIdTipo(tl);
+                l.setLsAutor(autorD.autores(id));
             }
-           return l; 
+            conn.desconectar();
+            return l;
         } catch (Exception e) {
             System.out.println("el sql es " + ps);
             return null;
         }
     }
-    
-    public List<Libros> top(){
-    AutorDao autorD = new AutorDao(conn);
+
+    public List<Libros> top() {
+        AutorDao autorD = new AutorDao();
         String sql = "SELECT DISTINCT l.id_libro, l.titulo, l.url, t.tipo "
                 + "FROM libros as l "
                 + "JOIN ejemplares as e on l.id_libro = e.id_libro "
@@ -111,14 +113,17 @@ AutorDao autorD = new AutorDao(conn);
                 + "JOIN autores as a on a.id_autor=al.id_autor "
                 + "WHERE e.id_libro is not null and e.id_estado=1 "
                 + "Order By l.id_libro DESC LIMIT 5";
-        
+
         List<Libros> lsLibro = new LinkedList<>();
         try {
+            conn = new Conexion();
             ps = conn.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
+            TiposLibros tl;
+            Libros l;
             while (rs.next()) {
-                Libros l = new Libros();
-                TiposLibros tl = new TiposLibros();
+                l = new Libros();
+                tl = new TiposLibros();
                 l.setIdLibro(rs.getInt(1));
                 l.setTitulo(rs.getString(2));
                 tl.setTipo(rs.getString(4));
@@ -126,14 +131,12 @@ AutorDao autorD = new AutorDao(conn);
                 l.setLsAutor(autorD.autores(l.getIdLibro()));
                 lsLibro.add(l);
             }
-
+            conn.desconectar();
         } catch (Exception e) {
-           
 
         }
         return lsLibro;
-        
-    
+
     }
 
 }

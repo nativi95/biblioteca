@@ -17,30 +17,29 @@ import java.util.List;
  * @author nativi
  */
 public class AutorDao {
-    Conexion conn = new Conexion();
+
+    Conexion conn;
     PreparedStatement ps;
     ResultSet rs;
 
-    public AutorDao(Conexion conn) {
-    }
-    
-    
-    
-    public List<Autores> autores(int idLibro){
-        String sql="SELECT a.id_autor, a.nombre, a.apellido from autores as a"
-                +" JOIN autores_libros as al on a.id_autor=al.id_autor"
-                +" WHERE al.id_libro="+idLibro;
+    public List<Autores> autores(int idLibro) {
+        String sql = "SELECT a.id_autor, a.nombre, a.apellido from autores as a"
+                + " JOIN autores_libros as al on a.id_autor=al.id_autor"
+                + " WHERE al.id_libro=" + idLibro;
         List<Autores> lsAutor = new LinkedList<>();
         try {
-            ps=conn.conectar().prepareStatement(sql);
-            rs=ps.executeQuery();
-            while(rs.next()){
-            Autores a= new Autores();
-            a.setIdAutor(rs.getInt(1));
-            a.setNombre(rs.getString(2));
-            a.setApellido(rs.getString(3));
-            lsAutor.add(a);
+            conn = new Conexion();
+            ps = conn.conectar().prepareStatement(sql);
+            rs = ps.executeQuery();
+            Autores a;
+            while (rs.next()) {
+                a = new Autores();
+                a.setIdAutor(rs.getInt(1));
+                a.setNombre(rs.getString(2));
+                a.setApellido(rs.getString(3));
+                lsAutor.add(a);
             }
+            conn.desconectar();
         } catch (Exception e) {
 
         }

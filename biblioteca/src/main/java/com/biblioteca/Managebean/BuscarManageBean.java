@@ -431,13 +431,21 @@ public class BuscarManageBean implements Serializable {
 
     public String VerEstudiante(int id) {
         try {
+                        System.out.println("+++++++++try");
             prestamoController.verEstudiante(id);
+                        System.out.println("+++++++++idEdtudiante");
             lsPrestamo = prestamoController.getLsPrestramos();
+                        System.out.println("+++++++++ls");
             nombre = lsPrestamo.get(0).getIdEstudiante().getNombres();
+                        System.out.println("+++++++++ls2");
             apellido = lsPrestamo.get(0).getIdEstudiante().getApellidos();
+                        System.out.println("+++++++++ls3");
             solvencia = buscanPrestamo(id);
+                        System.out.println("+++++++++solvencia");
             grado = lsPrestamo.get(0).getIdEstudiante().getIdGrado().getGrado();
+                        System.out.println("+++++++++ls4");
             turno = lsPrestamo.get(0).getIdEstudiante().getIdGrado().getIdTurno().getTurno();
+                        System.out.println("+++++++++ls5");
             return "/bibliotecario/Alumno.xhtml";
         } catch (Exception e) {
 

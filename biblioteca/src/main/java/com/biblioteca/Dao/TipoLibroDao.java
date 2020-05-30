@@ -17,27 +17,31 @@ import java.util.List;
  * @author nativi
  */
 public class TipoLibroDao {
-    Conexion conn = new Conexion();
+
+    Conexion conn;
     PreparedStatement ps;
     ResultSet rs;
 
-    public TipoLibroDao(Conexion conn) {
+    public TipoLibroDao() {
     }
-    
-    public List<TiposLibros> mostrar(){
-    String sql="SELECT * FROM tipos_libros";
-    List<TiposLibros> lsTipoLibro= new LinkedList<>();
+
+    public List<TiposLibros> mostrar() {
+        String sql = "SELECT * FROM tipos_libros";
+        List<TiposLibros> lsTipoLibro = new LinkedList<>();
         try {
-            ps=conn.conectar().prepareStatement(sql);
-            rs=ps.executeQuery();
-            while(rs.next()){
-            TiposLibros tl = new TiposLibros();
-            tl.setIdTipo(rs.getInt(1));
-            tl.setTipo(rs.getString(2));
-            lsTipoLibro.add(tl);
+            conn = new Conexion();
+            ps = conn.conectar().prepareStatement(sql);
+            rs = ps.executeQuery();
+            TiposLibros tl;
+            while (rs.next()) {
+                tl = new TiposLibros();
+                tl.setIdTipo(rs.getInt(1));
+                tl.setTipo(rs.getString(2));
+                lsTipoLibro.add(tl);
             }
+            conn.desconectar();
         } catch (Exception e) {
-            System.out.println("la sql "+ps);
+            System.out.println("la sql " + ps);
         }
         return lsTipoLibro;
     }

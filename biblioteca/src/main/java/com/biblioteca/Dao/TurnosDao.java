@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class TurnosDao {
 
-    Conexion conn = new Conexion();
+    Conexion conn;
     PreparedStatement ps;
     ResultSet rs;
 
@@ -26,14 +26,17 @@ public class TurnosDao {
         List<Turnos> lsTurnos = new ArrayList<>();
         String sql = "SELECT * FROM turnos";
         try {
+            conn = new Conexion();
             ps = conn.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
+            Turnos  t;
             while (rs.next()) {
-                Turnos t = new Turnos();
+                t = new Turnos();
                 t.setIdTurno(rs.getInt(1));
                 t.setTurno(rs.getString(2));
                 lsTurnos.add(t);
             }
+            conn.desconectar();
             return lsTurnos;
         } catch (Exception e) {
             System.out.println("+++ el error es "+e);

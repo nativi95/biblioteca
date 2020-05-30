@@ -23,20 +23,24 @@ public class EjemplarDao {
     PreparedStatement ps;
     ResultSet rs;
 
-    Conexion conn = new Conexion();
-LibroDao lDao= new LibroDao(conn);
+    Conexion conn;
+    LibroDao lDao = new LibroDao();
+
     public List<Ejemplares> listarEjemplar(int id) {
         String sql = "SELECT * FROM ejemplares as e "
                 + "JOIN estados as es on es.id_estado=e.id_estado "
                 + "WHERE id_libro=" + id;
 
         try {
+            conn = new Conexion();
             ps = conn.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
             List<Ejemplares> lsEjemplar = new ArrayList<>();
+            Ejemplares e;
+            Estados es;
             while (rs.next()) {
-                Estados es = new Estados();
-                Ejemplares e = new Ejemplares();
+                es = new Estados();
+                e = new Ejemplares();
                 e.setIdEjemplar(rs.getInt(1));
                 e.setEdicion(rs.getString(2));
                 es.setIdEstado(rs.getInt(5));
@@ -44,6 +48,7 @@ LibroDao lDao= new LibroDao(conn);
                 e.setIdEstado(es);
                 lsEjemplar.add(e);
             }
+            conn.desconectar();
             return lsEjemplar;
         } catch (Exception e) {
 
@@ -58,12 +63,14 @@ LibroDao lDao= new LibroDao(conn);
                 + "WHERE id_ejemplar=" + id;
         Ejemplares e = null;
         try {
+            conn = new Conexion();
             ps = conn.conectar().prepareStatement(sql);
             rs = ps.executeQuery();
             List<Ejemplares> lsEjemplar = new ArrayList<>();
+            Estados es;
             while (rs.next()) {
-                
-                Estados es = new Estados();
+
+                es = new Estados();
                 e = new Ejemplares();
                 e.setIdEjemplar(rs.getInt(1));
                 e.setEdicion(rs.getString(2));
@@ -73,6 +80,7 @@ LibroDao lDao= new LibroDao(conn);
                 e.setIdEstado(es);
                 lsEjemplar.add(e);
             }
+            conn.desconectar();
 
             if (!lsEjemplar.isEmpty()) {
 
