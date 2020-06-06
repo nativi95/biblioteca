@@ -37,11 +37,11 @@ public class LoginManageBean extends Mensaje implements Serializable {
 
     @PostConstruct
     public void init() {
-pass = "";
-rol = "";
-idUsuario = 0;
-idRol = 0;
-u = new Usuarios();
+        pass = "";
+        rol = "";
+        idUsuario = 0;
+        idRol = 0;
+        u = new Usuarios();
         loginController = new UsuarioLogin();
         System.out.println("++init++");
     }
@@ -72,6 +72,8 @@ u = new Usuarios();
                         FacesContext.getCurrentInstance().getExternalContext().redirect("/biblioteca/faces/bibliotecario/bLibro.xhtml");
 
                     } else {
+                        u = new Usuarios();
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("/biblioteca/faces/administrador/libro.xhtml");
 
                     }
                 }
