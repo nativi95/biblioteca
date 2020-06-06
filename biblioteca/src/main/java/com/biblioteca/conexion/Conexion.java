@@ -15,10 +15,10 @@ import java.sql.SQLException;
  */
 public class Conexion {
 
-    static String user = "root";
-    static String password = "root";
-    static String db = "db_biblioteca";
-    static String url = "jdbc:mysql://localhost:3306/db_biblioteca?useSSL=false";
+    private static String user = "root";
+    private static String password = "root";
+    private static String db = "db_biblioteca";
+    private static String url = "jdbc:mysql://localhost:3306/db_biblioteca?useSSL=false";
 
     private Connection conn;
 
